@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "avance_pro",
+            "cwd": "avance_pro",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "avance_pro (profile mode)",
+            "cwd": "avance_pro",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "avance_pro (release mode)",
+            "cwd": "avance_pro",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
