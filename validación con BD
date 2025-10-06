@@ -1,0 +1,44 @@
+const bcrypt = require('bcrypt');
+const User = require('../models/User');
+
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCK_TIME_MS = 10 * 60 * 1000; // 10 minutos
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return res.status(400).json({ message: 'Email y contraseña son requeridos.' });
+
+  const user = await User.findOne({ email });
+
+  if (!user)
+    return res.status(401).json({ message: 'Credenciales inválidas.' });
+
+  if (user.isLocked()) {
+    return res.status(403).json({ message: 'Cuenta temporalmente bloqueada. Intenta más tarde.' });
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    user.failedLoginAttempts += 1;
+
+    // Bloquea si supera el número de intentos
+    if (user.failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
+      user.lockUntil = Date.now() + LOCK_TIME_MS;
+      await user.save();
+      return res.status(403).json({ message: 'Demasiados intentos fallidos. Cuenta bloqueada temporalmente.' });
+    }
+
+    await user.save();
+    return res.status(401).json({ message: 'Credenciales inválidas.' });
+  }
+
+  // Credenciales válidas → Reiniciar intentos fallidos
+  user.failedLoginAttempts = 0;
+  user.lockUntil = null;
+  await user.save();
+
+  return res.status(200).json({ message: 'Inicio de sesión exitoso.' });
+};
