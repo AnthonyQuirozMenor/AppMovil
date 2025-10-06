@@ -1,0 +1,5 @@
+imagen	    Formato	   Resolución	  Resultado subida	 Previsualización	  Publicación final	  Comentarios
+test1.jpg	   JPEG	     1920x1080	    		 ✅	              ✅                 ✅	          Todo OK
+test2.png	   PNG	     1024x1024  	  		 ✅	              ✅                 ✅	          Miniatura cuadrada se adapta bien
+test3.gif	   GIF	      800x800	    	  	 ✅	              ✅                 ✅	        	Animación se mantiene
+test4.webp	 WEBP    	 720x1280    		     ✅	              ✅                 ✅	          Buena compresión, sin pérdida visible
