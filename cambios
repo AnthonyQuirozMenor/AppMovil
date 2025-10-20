@@ -1,1 +1,8 @@
-nuevo
+import dotenv from "dotenv";
+dotenv.config();
+
+export const izipayConfig = {
+  clientId: process.env.IZIPAY_CLIENT_ID,
+  clientSecret: process.env.IZIPAY_CLIENT_SECRET,
+  apiUrl: process.env.IZIPAY_API_URL,
+};
